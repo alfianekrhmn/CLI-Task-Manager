@@ -7,8 +7,11 @@ def load_task():
     if not os.path.exists(FILE_NAME):
         return []
     
-    with open(FILE_NAME, "r") as file:
-        return json.load(file)
+    try:
+        with open(FILE_NAME, "r") as file:
+            return json.load(file)
+    except (json.JSONDecodeError, ValueError):
+        return []
     
 def save_task(tasks):
     with open(FILE_NAME, "w") as file:
